@@ -58,7 +58,7 @@ static int getopt(int argc, char* const argv[], const char* optstring)
 #endif //!PLATFORM_UNIX
 
 void usage(char* programName) {
-    printf("Usage: %s -a <attestation-endpoint> -n <nonce> -o <%s|%s>\n", programName, OUTPUT_TYPE_BOOL, OUTPUT_TYPE_JWT);
+    printf("Usage: %s -a <attestation-endpoint> -r <runtime-data> -n <nonce> -o <%s|%s>\n", programName, OUTPUT_TYPE_BOOL, OUTPUT_TYPE_JWT);
 }
 
 int main(int argc, char* argv[]) {
