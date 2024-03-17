@@ -66,9 +66,10 @@ int main(int argc, char* argv[]) {
     std::string nonce;
     std::string output_type;
     std::string report_data;
+    std::string host_data;
 
     int opt;
-    while ((opt = getopt(argc, argv, ":a:n:o:r:")) != -1) {
+    while ((opt = getopt(argc, argv, ":a:n:o:r:h:")) != -1) {
         switch (opt) {
         case 'a':
             attestation_url.assign(optarg);
@@ -81,6 +82,9 @@ int main(int argc, char* argv[]) {
             break;
 	case 'r':
 	    report_data.assign(optarg);
+	    break;
+	case 'h':
+	    host_data.assign(optarg);
 	    break;
         case ':':
             fprintf(stderr, "Option needs a value\n");
@@ -115,7 +119,7 @@ int main(int argc, char* argv[]) {
         // parameters for the Attest call       
         attest::ClientParameters params = {};
         params.attestation_endpoint_url = (unsigned char*)attestation_url.c_str();
-	std::string client_payload_str = "{\"nonce\":\"" + nonce + "\", \"report_data\":\"" + report_data + "\"}"; // nonce is optional, report_data is base64 encoded in the response jwt
+	std::string client_payload_str = "{\"nonce\":\"" + nonce + "\", \"report_data\":\"" + report_data + "\", \"host_data\":\"" + host_data + "\"}"; // nonce is optional, report_data is base64 encoded in the response jwt
 	params.client_payload = (unsigned char*) client_payload_str.c_str();
         params.version = CLIENT_PARAMS_VERSION;
         unsigned char* jwt = nullptr;
